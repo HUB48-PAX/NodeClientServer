@@ -1,0 +1,14 @@
+<div id = "data"></div>
+<script type="text/javascript">
+	console.log( "debug" );
+	setInterval( () => { 
+		fetch( 'http://localhost:8080' )
+			.then(function( response ) {
+				return response.json();
+			})
+			.then( function( myJson ) {
+				document.getElementById( "data" ).innerText = myJson.data;
+				//console.log(JSON.stringify(myJson));
+			}); 
+	}, 3000);
+</script>
