@@ -1,0 +1,40 @@
+<body>
+	<textarea autofocus="" id="gist" cols="80" rows="10"></textarea>
+	<p><button>Post Data</button></p>
+
+	<script type="text/javascript">
+		function createGist( opts ) {
+			console.log( 'Posting request to API...' );
+			fetch( 'http://localhost:8080', {
+				method: 'post',
+				body: JSON.stringify( opts )
+			})
+			.then( function( response ) {
+				return response.json();
+			})
+			.then( function( data ) {
+				console.log( 'Posted to:', data.html_url );
+			});
+		};
+
+		function submitGist() {
+			var content = document.querySelector('textarea').value;
+			if ( content ) {
+				createGist({
+					description: 'Fetch API Post example',
+					public: true,
+					files: {
+						'test.js': {
+							content: content
+						}
+					}
+				});
+			} else {
+				console.log( 'Please enter in content to POST to a new Gist.' );
+			};
+		};
+
+		var submitBtn = document.querySelector( 'button' );
+		submitBtn.addEventListener( 'click', submitGist );
+	</script>
+</body>
